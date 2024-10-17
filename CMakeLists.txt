@@ -8,6 +8,7 @@ include(Helpers.cmake)
 
 add_library(Capacitor2Fix SHARED
     ./src/Capacitor2.cpp
+    ./src/Capacitor2Proc.cpp
     include/vstsdk/vstplugmain.cpp
     include/vstsdk/audioeffect.cpp
     include/vstsdk/audioeffectx.cpp)
