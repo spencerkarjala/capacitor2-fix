@@ -4,8 +4,8 @@
  *  Copyright (c) 2011 __MyCompanyName__, Airwindows uses the MIT license
  * ======================================== */
 
-#ifndef __Capacitor2_H
-#define __Capacitor2_H
+#ifndef __Capacitor2Fix_H
+#define __Capacitor2Fix_H
 
 #ifndef __audioeffect__
 #include "audioeffectx.h"
@@ -28,12 +28,12 @@ const int kNumInputs = 2;
 const int kNumOutputs = 2;
 const unsigned long kUniqueId = 'capb';    //Change this to what the AU identity is!
 
-class Capacitor2 : 
+class Capacitor2Fix : 
     public AudioEffectX 
 {
 public:
-    Capacitor2(audioMasterCallback audioMaster);
-    ~Capacitor2();
+    Capacitor2Fix(audioMasterCallback audioMaster);
+    ~Capacitor2Fix();
     virtual bool getEffectName(char* name);                       // The plug-in name
     virtual VstPlugCategory getPlugCategory();                    // The general category for the plug-in
     virtual bool getProductString(char* text);                    // This is a unique plug-in string provided by Steinberg

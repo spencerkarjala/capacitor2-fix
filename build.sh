@@ -1,10 +1,11 @@
 #!/bin/sh
 
 if [[ -d ./build ]]; then
-    rm -r ./build/;
+    rm -r ./build/*;
+else
+    mkdir ./build/;
 fi;
 
-mkdir ./build/;
 cd ./build/;
 cmake ..;
 make;

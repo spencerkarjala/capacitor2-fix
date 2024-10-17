@@ -3,13 +3,13 @@
  *  Copyright (c) 2016 airwindows, Airwindows uses the MIT license
  * ======================================== */
 
-#ifndef __Capacitor2_H
-#include "Capacitor2.h"
+#ifndef __Capacitor2Fix_H
+#include "Capacitor2Fix.h"
 #endif
 
-AudioEffect* createEffectInstance(audioMasterCallback audioMaster) {return new Capacitor2(audioMaster);}
+AudioEffect* createEffectInstance(audioMasterCallback audioMaster) {return new Capacitor2Fix(audioMaster);}
 
-Capacitor2::Capacitor2(audioMasterCallback audioMaster) :
+Capacitor2Fix::Capacitor2Fix(audioMasterCallback audioMaster) :
     AudioEffectX(audioMaster, kNumPrograms, kNumParameters)
 {
 	A = 1.0;
@@ -68,10 +68,10 @@ Capacitor2::Capacitor2(audioMasterCallback audioMaster) :
     vst_strncpy (_programName, "Default", kVstMaxProgNameLen); // default program name
 }
 
-Capacitor2::~Capacitor2() {}
-VstInt32 Capacitor2::getVendorVersion () {return 1000;}
-void Capacitor2::setProgramName(char *name) {vst_strncpy (_programName, name, kVstMaxProgNameLen);}
-void Capacitor2::getProgramName(char *name) {vst_strncpy (name, _programName, kVstMaxProgNameLen);}
+Capacitor2Fix::~Capacitor2Fix() {}
+VstInt32 Capacitor2Fix::getVendorVersion () {return 1000;}
+void Capacitor2Fix::setProgramName(char *name) {vst_strncpy (_programName, name, kVstMaxProgNameLen);}
+void Capacitor2Fix::getProgramName(char *name) {vst_strncpy (name, _programName, kVstMaxProgNameLen);}
 //airwindows likes to ignore this stuff. Make your own programs, and make a different plugin rather than
 //trying to do versioning and preventing people from using older versions. Maybe they like the old one!
 
@@ -82,7 +82,7 @@ static float pinParameter(float data)
 	return data;
 }
 
-VstInt32 Capacitor2::getChunk (void** data, bool isPreset)
+VstInt32 Capacitor2Fix::getChunk (void** data, bool isPreset)
 {
 	float *chunkData = (float *)calloc(kNumParameters, sizeof(float));
 	chunkData[0] = A;
@@ -97,7 +97,7 @@ VstInt32 Capacitor2::getChunk (void** data, bool isPreset)
 	return kNumParameters * sizeof(float);
 }
 
-VstInt32 Capacitor2::setChunk (void* data, VstInt32 byteSize, bool isPreset)
+VstInt32 Capacitor2Fix::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 {	
 	float *chunkData = (float *)data;
 	A = pinParameter(chunkData[0]);
@@ -111,7 +111,7 @@ VstInt32 Capacitor2::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 	return 0;
 }
 
-void Capacitor2::setParameter(VstInt32 index, float value) {
+void Capacitor2Fix::setParameter(VstInt32 index, float value) {
     switch (index) {
         case kParamA: A = value; break;
         case kParamB: B = value; break;
@@ -121,7 +121,7 @@ void Capacitor2::setParameter(VstInt32 index, float value) {
     }
 }
 
-float Capacitor2::getParameter(VstInt32 index) {
+float Capacitor2Fix::getParameter(VstInt32 index) {
     switch (index) {
         case kParamA: return A; break;
         case kParamB: return B; break;
@@ -131,7 +131,7 @@ float Capacitor2::getParameter(VstInt32 index) {
     } return 0.0; //we only need to update the relevant name, this is simple to manage
 }
 
-void Capacitor2::getParameterName(VstInt32 index, char *text) {
+void Capacitor2Fix::getParameterName(VstInt32 index, char *text) {
     switch (index) {
         case kParamA: vst_strncpy (text, "Lowpass", kVstMaxParamStrLen); break;
 		case kParamB: vst_strncpy (text, "Highpass", kVstMaxParamStrLen); break;
@@ -141,7 +141,7 @@ void Capacitor2::getParameterName(VstInt32 index, char *text) {
     } //this is our labels for displaying in the VST host
 }
 
-void Capacitor2::getParameterDisplay(VstInt32 index, char *text) {
+void Capacitor2Fix::getParameterDisplay(VstInt32 index, char *text) {
     switch (index) {
         case kParamA: float2string (A, text, kVstMaxParamStrLen); break;
         case kParamB: float2string (B, text, kVstMaxParamStrLen); break;
@@ -151,7 +151,7 @@ void Capacitor2::getParameterDisplay(VstInt32 index, char *text) {
 	} //this displays the values and handles 'popups' where it's discrete choices
 }
 
-void Capacitor2::getParameterLabel(VstInt32 index, char *text) {
+void Capacitor2Fix::getParameterLabel(VstInt32 index, char *text) {
     switch (index) {
         case kParamA: vst_strncpy (text, "", kVstMaxParamStrLen); break;
         case kParamB: vst_strncpy (text, "", kVstMaxParamStrLen); break;
@@ -161,19 +161,19 @@ void Capacitor2::getParameterLabel(VstInt32 index, char *text) {
     }
 }
 
-VstInt32 Capacitor2::canDo(char *text) 
+VstInt32 Capacitor2Fix::canDo(char *text) 
 { return (_canDo.find(text) == _canDo.end()) ? -1: 1; } // 1 = yes, -1 = no, 0 = don't know
 
-bool Capacitor2::getEffectName(char* name) {
-    vst_strncpy(name, "Capacitor2", kVstMaxProductStrLen); return true;
+bool Capacitor2Fix::getEffectName(char* name) {
+    vst_strncpy(name, "Capacitor2Fix", kVstMaxProductStrLen); return true;
 }
 
-VstPlugCategory Capacitor2::getPlugCategory() {return kPlugCategEffect;}
+VstPlugCategory Capacitor2Fix::getPlugCategory() {return kPlugCategEffect;}
 
-bool Capacitor2::getProductString(char* text) {
-  	vst_strncpy (text, "airwindows Capacitor2", kVstMaxProductStrLen); return true;
+bool Capacitor2Fix::getProductString(char* text) {
+  	vst_strncpy (text, "skarjala Capacitor2Fix", kVstMaxProductStrLen); return true;
 }
 
-bool Capacitor2::getVendorString(char* text) {
-  	vst_strncpy (text, "airwindows", kVstMaxVendorStrLen); return true;
+bool Capacitor2Fix::getVendorString(char* text) {
+  	vst_strncpy (text, "skarjala", kVstMaxVendorStrLen); return true;
 }
