@@ -4,8 +4,6 @@ project(airwindows_ports)
 set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-O2 -D__cdecl=)
 
-include(Helpers.cmake)
-
 add_library(Capacitor2Fix SHARED
     ./src/Capacitor2.cpp
     ./src/Capacitor2Proc.cpp
