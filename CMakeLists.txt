@@ -3,7 +3,7 @@ project(airwindows_ports)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_BUILD_TYPE Debug)
-add_compile_options(-O2 -D__cdecl=)
+add_compile_options(-D__cdecl=)
 
 add_library(Capacitor2Fix SHARED
     ./src/Capacitor2Fix.cpp
