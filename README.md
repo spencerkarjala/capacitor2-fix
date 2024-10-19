@@ -24,4 +24,4 @@ To build this project, you need to install CMake on your system. You also need t
     └── vstplugmain.cpp
 ```
 
-With this in place, on Linux, just run `build.sh` and the script will handle the rest. You can grab the plugin from `./build/Capacitor2Fix.so` afterward.
+With this in place, on Linux, just run `build.sh --clean` and the script will handle the rest. You can grab the plugin from `./build/Capacitor2Fix.so` afterward.
