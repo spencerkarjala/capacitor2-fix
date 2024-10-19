@@ -1,3 +1,4 @@
 [submodule "include/vst3sdk"]
 	path = include/vst3sdk
 	url = git@github.com:steinbergmedia/vst3sdk.git
+	branch = cc2adc90382dded9e347caf74e4532f1458715db
