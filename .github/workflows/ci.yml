@@ -15,8 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: recursive
-          persist-credentials: false
+          submodules: true
       - name: check-submodules
         shell: bash
         run: ls -al ./include/vst3sdk/cmake
