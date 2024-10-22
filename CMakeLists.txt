@@ -2,8 +2,12 @@ cmake_minimum_required(VERSION 3.15.0)
 project(airwindows_capacitor2_fix VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_BUILD_TYPE Debug)
 add_compile_options(-D__cdecl=)
+
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+    message(STATUS "Defaulting to release type 'Release'")
+    set(CMAKE_BUILD_TYPE Release)
+endif()
 
 option(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES "Enable VST 3 Plug-in Examples" OFF)
 option(SMTG_ENABLE_VST3_HOSTING_EXAMPLES "Enable VST 3 Hosting Examples" OFF)
