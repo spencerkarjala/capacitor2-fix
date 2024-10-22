@@ -44,12 +44,42 @@ namespace Steinberg {
 
           private:
             void handleProcessParamChanges(IParameterChanges* paramChanges, const int32 numSamples);
+            void processAudio(AudioBusBuffers* inputs, const int32 nInputs, AudioBusBuffers* outputs, const int32 nOutputs, const int32 nSamples);
 
-            ParamValue paramLowpass = 0;
-            ParamValue paramHighpass = 0;
-            ParamValue paramNonLin = 0;
-            ParamValue paramDryWet = 0;
+            ParamValue paramLowpass = 1.0;
+            ParamValue paramHighpass = 0.0;
+            ParamValue paramNonLin = 0.0;
+            ParamValue paramDryWet = 1.0;
             bool pluginBypass = false;
+
+            struct Capacitor2IIR
+            {
+                Sample64 coefficients[6];
+            };
+
+            struct Capacitor2FilterPair
+            {
+                Capacitor2IIR highpass;
+                Capacitor2IIR lowpass;
+            };
+
+            std::vector<Capacitor2FilterPair> filters;
+
+            int count;
+
+            double lowpassChase;
+            double highpassChase;
+            double wetChase;
+
+            double lowpassBaseAmount;
+            double highpassBaseAmount;
+            double wet;
+
+            double lastLowpass;
+            double lastHighpass;
+            double lastWet;
+
+            std::vector<uint32_t> floatingPointDithers;
         };
     }
 }

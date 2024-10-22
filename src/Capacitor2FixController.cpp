@@ -28,17 +28,9 @@ namespace Steinberg {
 
             // clang-format off
             parameters.addParameter(
-                STR16("Bypass"),
+                STR16("Lowpass"),
                 STR16("Capacitor2"),
-                1,
-                0,
-                Vst::ParameterInfo::kCanAutomate | Vst::ParameterInfo::kIsBypass,
-                Capacitor2FixParamID::kBypass
-            );
-            parameters.addParameter(
-                STR16("Lowpass Frequency"),
-                STR16("Capacitor2"),
-                255,
+                256,
                 1.0,
                 Vst::ParameterInfo::kCanAutomate,
                 Capacitor2FixParamID::kLowpass,
@@ -46,9 +38,9 @@ namespace Steinberg {
                 STR16("Lowpass")
             );
             parameters.addParameter(
-                STR16("Highpass Frequency"),
+                STR16("Highpass"),
                 STR16("Capacitor2"),
-                255,
+                256,
                 0.0,
                 Vst::ParameterInfo::kCanAutomate,
                 Capacitor2FixParamID::kHighpass,
@@ -56,9 +48,9 @@ namespace Steinberg {
                 STR16("Highpass")
             );
             parameters.addParameter(
-                STR16("Nonlinear factor"),
+                STR16("NonLin"),
                 STR16("Capacitor2"),
-                255,
+                256,
                 0.0,
                 Vst::ParameterInfo::kCanAutomate,
                 Capacitor2FixParamID::kNonLin,
@@ -66,14 +58,24 @@ namespace Steinberg {
                 STR16("NonLin")
             );
             parameters.addParameter(
-                STR16("Dry-Wet"),
+                STR16("Dry/Wet"),
                 STR16("Capacitor2"),
-                255,
+                256,
                 1.0,
                 Vst::ParameterInfo::kCanAutomate,
                 Capacitor2FixParamID::kDryWet,
                 0,
-                STR16("DryWet")
+                STR16("Dry/Wet")
+            );
+            parameters.addParameter(
+                STR16("Bypass"),
+                STR16("Capacitor2"),
+                1,
+                0,
+                Vst::ParameterInfo::kCanAutomate | Vst::ParameterInfo::kIsBypass,
+                Capacitor2FixParamID::kBypass,
+                0,
+                STR16("Bypass")
             );
             // clang-format on
 
@@ -93,22 +95,22 @@ namespace Steinberg {
 
             IBStreamer streamer(state, kLittleEndian);
 
-            float savedLowpassParam = 1.f;
+            float savedLowpassParam = 0.f;
             if (streamer.readFloat(savedLowpassParam) == false) {
                 return kResultFalse;
             }
 
-            float savedHighpassParam = 1.f;
+            float savedHighpassParam = 0.f;
             if (streamer.readFloat(savedHighpassParam) == false) {
                 return kResultFalse;
             }
 
-            float savedNonLinParam = 1.f;
+            float savedNonLinParam = 0.f;
             if (streamer.readFloat(savedNonLinParam) == false) {
                 return kResultFalse;
             }
 
-            float savedDryWetParam = 1.f;
+            float savedDryWetParam = 0.f;
             if (streamer.readFloat(savedDryWetParam) == false) {
                 return kResultFalse;
             }
@@ -135,22 +137,22 @@ namespace Steinberg {
 
             IBStreamer streamer(state, kLittleEndian);
 
-            float savedLowpassParam = 1.f;
+            float savedLowpassParam = 0.f;
             if (streamer.readFloat(savedLowpassParam) == false) {
                 return kResultFalse;
             }
 
-            float savedHighpassParam = 1.f;
+            float savedHighpassParam = 0.f;
             if (streamer.readFloat(savedHighpassParam) == false) {
                 return kResultFalse;
             }
 
-            float savedNonLinParam = 1.f;
+            float savedNonLinParam = 0.f;
             if (streamer.readFloat(savedNonLinParam) == false) {
                 return kResultFalse;
             }
 
-            float savedDryWetParam = 1.f;
+            float savedDryWetParam = 0.f;
             if (streamer.readFloat(savedDryWetParam) == false) {
                 return kResultFalse;
             }
