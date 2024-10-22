@@ -26,3 +26,7 @@ jobs:
         shell: pwsh
         run: .\build.ps1 -Clean
         if: runner.os == 'Windows'
+
+      - name: print build output
+        shell: bash
+        run: ls -al ./build/ && echo "" echo ls -al ./build/*
