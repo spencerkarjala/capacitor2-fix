@@ -24,7 +24,7 @@ jobs:
 
       - name: run build (windows)
         shell: pwsh
-        run: .\build.ps1 -Clean -Type Release
+        run: .\build.ps1 -Clean -Type=Release
         if: runner.os == 'Windows'
 
       - name: print build output
