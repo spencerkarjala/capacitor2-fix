@@ -19,14 +19,14 @@ jobs:
 
       - name: run build (unix)
         shell: bash
-        run: ./build.sh --clean
+        run: ./build.sh --clean --type release
         if: runner.os != 'Windows'
 
       - name: run build (windows)
         shell: pwsh
-        run: .\build.ps1 -Clean
+        run: .\build.ps1 -Clean -Type Release
         if: runner.os == 'Windows'
 
       - name: print build output
         shell: bash
-        run: ls -al ./build/VST3/
+        run: tree ./build/VST3/
