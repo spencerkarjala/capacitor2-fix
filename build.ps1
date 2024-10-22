@@ -1,6 +1,6 @@
 # Parse command-line arguments
 param (
-    [switch]$Clean = $false
+    [switch]$Clean = $false,
     [switch]$Type
 )
 
