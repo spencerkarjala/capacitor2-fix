@@ -9,8 +9,11 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
+        # os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    outputs:
+      vst-artifact: ${{ steps.artifact-upload.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -27,6 +30,9 @@ jobs:
         run: .\build.ps1 -Clean -Type=Release
         if: runner.os == 'Windows'
 
-      - name: print build output
-        shell: bash
-        run: tree ./build/VST3/
+      - uses: actions/upload-artifact@v4
+        id: artifact-upload
+        with:
+          name: "capacitor2fix-${{ matrix.os }}"
+          path: ./build/VST3/Release/
+          if-no-files-found: error
