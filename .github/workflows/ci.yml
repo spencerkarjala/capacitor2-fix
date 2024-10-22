@@ -18,7 +18,7 @@ jobs:
           submodules: true
       - name: check-submodules
         shell: bash
-        run: ls -al ./include/vst3sdk/cmake/*
+        run: ls -al ./include/vst3sdk/cmake
       - name: build
         shell: bash
         run: ./build.sh --clean
