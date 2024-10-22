@@ -16,6 +16,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: true
+      - name: check-submodules
+        shell: bash
+        run: ls -al ./include && echo "" && ls -al ./include/*
       - name: build
         shell: bash
         run: ./build.sh --clean
