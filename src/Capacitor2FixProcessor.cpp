@@ -16,7 +16,6 @@
 
 #include <cassert>
 #include <cmath>
-#include <format>
 #include <iostream>
 #include <stdexcept>
 #include <unordered_map>

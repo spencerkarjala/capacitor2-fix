@@ -1,7 +1,6 @@
 #include "LookupTable.hpp"
 
 #include <cassert>
-#include <format>
 #include <stdexcept>
 
 namespace skarjala {
@@ -44,8 +43,7 @@ namespace skarjala {
     const double& LookupTable::operator[](const uint32_t index) const
     {
         if (index > data.size()) {
-            const auto errmsg = std::format("LookupTable received out-of-range index {} on max size of {}", index, data.size());
-            throw std::out_of_range(errmsg);
+            throw std::out_of_range("LookupTable received out-of-range index");
         }
         return data[index];
     }

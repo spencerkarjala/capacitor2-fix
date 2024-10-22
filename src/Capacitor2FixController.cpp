@@ -10,7 +10,6 @@
 #include "Capacitor2FixCIDs.hpp"
 #include "base/source/fstreamer.h"
 
-#include <format>
 #include <stdexcept>
 
 namespace Steinberg {
