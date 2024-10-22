@@ -16,6 +16,13 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
-      - name: build
+
+      - name: run build (unix)
         shell: bash
         run: ./build.sh --clean
+        if: runner.os != 'Windows'
+
+      - name: run build (windows)
+        shell: pwsh
+        run: .\build.ps1 -Clean
+        if: runner.os == 'Windows'
