@@ -13,12 +13,10 @@ jobs:
         # os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: check-ssh
-        shell: bash
-        run: ssh -vT git@github.com
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+          persist-credentials: false
       - name: check-submodules
         shell: bash
         run: ls -al ./include/vst3sdk/cmake
