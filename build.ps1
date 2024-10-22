@@ -20,7 +20,7 @@ if ($Type) {
     if ($Type -eq "Debug") {
         $cmakeArgs += "-DCMAKE_BUILD_TYPE=Debug"
     }
-    else if ($Type -eq "Release") {
+    elseif ($Type -eq "Release") {
         $cmakeArgs += "-DCMAKE_BUILD_TYPE=Release"
     }
     else {
@@ -29,7 +29,8 @@ if ($Type) {
     }
 }
 
-cmakeArgs += "-G" "Visual Studio 17 2022"
+$cmakeArgs += "-G"
+$cmakeArgs += "Visual Studio 17 2022"
 
 Set-Location $buildDir
 cmake .. @cmakeArgs
