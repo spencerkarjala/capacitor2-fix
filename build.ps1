@@ -36,3 +36,4 @@ Set-Location $buildDir
 cmake .. @cmakeArgs
 cmake --build .
 Set-Location ..
+tree /F .\build
