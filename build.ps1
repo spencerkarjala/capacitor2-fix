@@ -16,9 +16,11 @@ if (Test-Path $buildDir) {
 
 $cmakeArgs = @()
 
+$buildType = "Release"
 if ($Type) {
     if ($Type -eq "Debug") {
         $cmakeArgs += "-DCMAKE_BUILD_TYPE=Debug"
+        $buildType = "Debug"
     }
     elseif ($Type -eq "Release") {
         $cmakeArgs += "-DCMAKE_BUILD_TYPE=Release"
@@ -36,6 +38,6 @@ Set-Location $buildDir
 
 Write-Host "Generating project using CMake with arguments: " @cmakeArgs
 cmake .. @cmakeArgs
-cmake --build @cmakeArgs .
+cmake --build . --config $buildType
 
 Set-Location ..
