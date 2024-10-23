@@ -36,6 +36,6 @@ Set-Location $buildDir
 
 Write-Host "Generating project using CMake with arguments: " @cmakeArgs
 cmake .. @cmakeArgs
-cmake --build . @cmakeArgs
+cmake --build @cmakeArgs .
 
 Set-Location ..
