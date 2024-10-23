@@ -33,7 +33,9 @@ $cmakeArgs += "-G"
 $cmakeArgs += "Visual Studio 17 2022"
 
 Set-Location $buildDir
+
+Write-Host "Generating project using CMake with arguments: " @cmakeArgs
 cmake .. @cmakeArgs
-cmake --build .
+cmake --build . @cmakeArgs
+
 Set-Location ..
-tree /F .\build
