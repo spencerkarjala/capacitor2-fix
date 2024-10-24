@@ -20,11 +20,11 @@ smtg_enable_vst3_sdk()
 
 smtg_add_vst3plugin(
     Capacitor2Tweak
-    ${PROJECT_SOURCE_DIR}/src/Entry.cpp
-    ${PROJECT_SOURCE_DIR}/src/Capacitor2TweakController.hpp
-    ${PROJECT_SOURCE_DIR}/src/Capacitor2TweakController.cpp
-    ${PROJECT_SOURCE_DIR}/src/Capacitor2TweakProcessor.hpp
-    ${PROJECT_SOURCE_DIR}/src/Capacitor2TweakProcessor.cpp
+    ${PROJECT_SOURCE_DIR}/src/PluginEntry.cpp
+    ${PROJECT_SOURCE_DIR}/src/PluginController.hpp
+    ${PROJECT_SOURCE_DIR}/src/PluginController.cpp
+    ${PROJECT_SOURCE_DIR}/src/PluginProcessor.hpp
+    ${PROJECT_SOURCE_DIR}/src/PluginProcessor.cpp
     ${PROJECT_SOURCE_DIR}/src/LookupTable.hpp
     ${PROJECT_SOURCE_DIR}/src/LookupTable.cpp)
 
