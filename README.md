@@ -1,6 +1,6 @@
-# Capacitor2Fix
+# Capacitor2Tweak
 
-This repository implements a simple fix for Airwindows' Capacitor2 VST plugin. In some conditions, the original Capacitor2 plugin can produce undesirable outputs (eg. NaNs) that are not typically handled gracefully by DAWs. This version of the plugin fixes that issue.
+This repository implements a simple tweak to Airwindows' Capacitor2 VST plugin. In some conditions, the original Capacitor2 plugin can produce undesirable outputs (eg. NaNs) that are not typically handled gracefully by DAWs. This version of the plugin saturates the filter IIR coefficients to prevent invalid float outputs from occurring.
 
 Most of the effort in this repository was originally done by Chris at Airwindows - I've just simplified the build process (since we're building one plugin, not hundreds) and resolved the invalid output issue. The original repository is available [here](https://github.com/airwindows/airwindows).
 
@@ -24,4 +24,4 @@ To build this project, you need to install CMake on your system. You also need t
     └── vstplugmain.cpp
 ```
 
-With this in place, on Linux, just run `build.sh --clean` and the script will handle the rest. You can grab the plugin from `./build/Capacitor2Fix.so` afterward.
+With this in place, on Linux, just run `build.sh --clean` and the script will handle the rest. You can grab the plugin from `./build/Capacitor2Tweak.so` afterward.

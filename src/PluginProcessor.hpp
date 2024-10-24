@@ -2,18 +2,18 @@
 //  *  Capacitor2
 //  *  Copyright (c) 2016 airwindows, Airwindows uses the MIT license
 //  * ========================================
-//  *  Capacitor2Fix - Capacitor2FixProcessor.cpp
+//  *  Capacitor2Tweak - Capacitor2TweakProcessor.cpp
 //  *  Ported to VST3 by skarjala, open-sourced using GPLv3 license
 //  * ======================================== */
 
-#ifndef _CAPACITOR2_FIX_PROCESSOR_
-#define _CAPACITOR2_FIX_PROCESSOR_
+#ifndef _CAPACITOR2_TWEAK_PROCESSOR_
+#define _CAPACITOR2_TWEAK_PROCESSOR_
 
 #include "public.sdk/source/vst/vstaudioeffect.h"
 
 namespace Steinberg {
     namespace Vst {
-        class Capacitor2FixProcessor : public Steinberg::Vst::AudioEffect
+        class Capacitor2TweakProcessor : public Steinberg::Vst::AudioEffect
         {
           public:
             /** Called when creating an instance of the plugin */
@@ -40,7 +40,7 @@ namespace Steinberg {
             /** Implements live audio processing for the plugin */
             tresult PLUGIN_API process(ProcessData& data) override;
 
-            static FUnknown* createInstance(void*) { return static_cast<IAudioProcessor*>(new Capacitor2FixProcessor); }
+            static FUnknown* createInstance(void*) { return static_cast<IAudioProcessor*>(new Capacitor2TweakProcessor); }
 
           private:
             void handleProcessParamChanges(IParameterChanges* paramChanges, const int32 numSamples);
@@ -84,4 +84,4 @@ namespace Steinberg {
     }
 }
 
-#endif // _CAPACITOR2_FIX_PROCESSOR_
+#endif // _CAPACITOR2_TWEAK_PROCESSOR_

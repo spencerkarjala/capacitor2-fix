@@ -2,19 +2,19 @@
 //  *  Capacitor2
 //  *  Copyright (c) 2016 airwindows, Airwindows uses the MIT license
 //  * ========================================
-//  *  Capacitor2Fix - Capacitor2FixProcessor.cpp
+//  *  Capacitor2Tweak - Capacitor2TweakProcessor.cpp
 //  *  Ported to VST3 by skarjala, open-sourced using GPLv3 license
 //  * ======================================== */
 
-#include "Capacitor2FixController.hpp"
-#include "Capacitor2FixCIDs.hpp"
+#include "PluginController.hpp"
+#include "PluginCIDs.hpp"
 #include "base/source/fstreamer.h"
 
 #include <stdexcept>
 
 namespace Steinberg {
     namespace Vst {
-        tresult PLUGIN_API Capacitor2FixController::initialize(FUnknown* context)
+        tresult PLUGIN_API Capacitor2TweakController::initialize(FUnknown* context)
         {
             if (context == nullptr) {
                 return kResultFalse;
@@ -32,7 +32,7 @@ namespace Steinberg {
                 256,
                 1.0,
                 Vst::ParameterInfo::kCanAutomate,
-                Capacitor2FixParamID::kLowpass,
+                Capacitor2TweakParamID::kLowpass,
                 0,
                 STR16("Lowpass")
             );
@@ -42,7 +42,7 @@ namespace Steinberg {
                 256,
                 0.0,
                 Vst::ParameterInfo::kCanAutomate,
-                Capacitor2FixParamID::kHighpass,
+                Capacitor2TweakParamID::kHighpass,
                 0,
                 STR16("Highpass")
             );
@@ -52,7 +52,7 @@ namespace Steinberg {
                 256,
                 0.0,
                 Vst::ParameterInfo::kCanAutomate,
-                Capacitor2FixParamID::kNonLin,
+                Capacitor2TweakParamID::kNonLin,
                 0,
                 STR16("NonLin")
             );
@@ -62,7 +62,7 @@ namespace Steinberg {
                 256,
                 1.0,
                 Vst::ParameterInfo::kCanAutomate,
-                Capacitor2FixParamID::kDryWet,
+                Capacitor2TweakParamID::kDryWet,
                 0,
                 STR16("Dry/Wet")
             );
@@ -72,7 +72,7 @@ namespace Steinberg {
                 1,
                 0,
                 Vst::ParameterInfo::kCanAutomate | Vst::ParameterInfo::kIsBypass,
-                Capacitor2FixParamID::kBypass,
+                Capacitor2TweakParamID::kBypass,
                 0,
                 STR16("Bypass")
             );
@@ -81,12 +81,12 @@ namespace Steinberg {
             return kResultOk;
         }
 
-        tresult PLUGIN_API Capacitor2FixController::terminate()
+        tresult PLUGIN_API Capacitor2TweakController::terminate()
         {
             return EditControllerEx1::terminate();
         }
 
-        tresult PLUGIN_API Capacitor2FixController::setComponentState(IBStream* state)
+        tresult PLUGIN_API Capacitor2TweakController::setComponentState(IBStream* state)
         {
             if (state == nullptr) {
                 return kResultFalse;
@@ -119,16 +119,16 @@ namespace Steinberg {
                 return kResultFalse;
             }
 
-            setParamNormalized(Capacitor2FixParamID::kLowpass, savedLowpassParam);
-            setParamNormalized(Capacitor2FixParamID::kHighpass, savedHighpassParam);
-            setParamNormalized(Capacitor2FixParamID::kNonLin, savedNonLinParam);
-            setParamNormalized(Capacitor2FixParamID::kDryWet, savedDryWetParam);
-            setParamNormalized(Capacitor2FixParamID::kBypass, savedBypass);
+            setParamNormalized(Capacitor2TweakParamID::kLowpass, savedLowpassParam);
+            setParamNormalized(Capacitor2TweakParamID::kHighpass, savedHighpassParam);
+            setParamNormalized(Capacitor2TweakParamID::kNonLin, savedNonLinParam);
+            setParamNormalized(Capacitor2TweakParamID::kDryWet, savedDryWetParam);
+            setParamNormalized(Capacitor2TweakParamID::kBypass, savedBypass);
 
             return kResultOk;
         }
 
-        tresult PLUGIN_API Capacitor2FixController::setState(IBStream* state)
+        tresult PLUGIN_API Capacitor2TweakController::setState(IBStream* state)
         {
             if (state == nullptr) {
                 return kResultFalse;
@@ -161,25 +161,25 @@ namespace Steinberg {
                 return kResultFalse;
             }
 
-            setParamNormalized(Capacitor2FixParamID::kLowpass, savedLowpassParam);
-            setParamNormalized(Capacitor2FixParamID::kHighpass, savedHighpassParam);
-            setParamNormalized(Capacitor2FixParamID::kNonLin, savedNonLinParam);
-            setParamNormalized(Capacitor2FixParamID::kDryWet, savedDryWetParam);
-            setParamNormalized(Capacitor2FixParamID::kBypass, savedBypass);
+            setParamNormalized(Capacitor2TweakParamID::kLowpass, savedLowpassParam);
+            setParamNormalized(Capacitor2TweakParamID::kHighpass, savedHighpassParam);
+            setParamNormalized(Capacitor2TweakParamID::kNonLin, savedNonLinParam);
+            setParamNormalized(Capacitor2TweakParamID::kDryWet, savedDryWetParam);
+            setParamNormalized(Capacitor2TweakParamID::kBypass, savedBypass);
             return kResultOk;
         }
 
-        tresult PLUGIN_API Capacitor2FixController::getState(IBStream* state)
+        tresult PLUGIN_API Capacitor2TweakController::getState(IBStream* state)
         {
             if (state == nullptr) {
                 return kResultFalse;
             }
 
-            float toSaveLowpassParam = getParamNormalized(Capacitor2FixParamID::kLowpass);
-            float toSaveHighpassParam = getParamNormalized(Capacitor2FixParamID::kHighpass);
-            float toSaveNonLinParam = getParamNormalized(Capacitor2FixParamID::kNonLin);
-            float toSaveDryWetParam = getParamNormalized(Capacitor2FixParamID::kDryWet);
-            float toSaveBypass = getParamNormalized(Capacitor2FixParamID::kBypass);
+            float toSaveLowpassParam = getParamNormalized(Capacitor2TweakParamID::kLowpass);
+            float toSaveHighpassParam = getParamNormalized(Capacitor2TweakParamID::kHighpass);
+            float toSaveNonLinParam = getParamNormalized(Capacitor2TweakParamID::kNonLin);
+            float toSaveDryWetParam = getParamNormalized(Capacitor2TweakParamID::kDryWet);
+            float toSaveBypass = getParamNormalized(Capacitor2TweakParamID::kBypass);
 
             IBStreamer streamer(state, kLittleEndian);
 
@@ -192,32 +192,32 @@ namespace Steinberg {
             return kResultOk;
         }
 
-        IPlugView* PLUGIN_API Capacitor2FixController::createView(FIDString name)
+        IPlugView* PLUGIN_API Capacitor2TweakController::createView(FIDString name)
         {
             return nullptr;
         }
 
-        tresult PLUGIN_API Capacitor2FixController::setParamNormalized(ParamID tag, ParamValue value)
+        tresult PLUGIN_API Capacitor2TweakController::setParamNormalized(ParamID tag, ParamValue value)
         {
             // throw std::runtime_error(std::format("11111 {}", value));
             return EditControllerEx1::setParamNormalized(tag, value);
         }
 
-        tresult PLUGIN_API Capacitor2FixController::getParamStringByValue(ParamID tag, ParamValue valueNormalized, String128 string)
+        tresult PLUGIN_API Capacitor2TweakController::getParamStringByValue(ParamID tag, ParamValue valueNormalized, String128 string)
         {
             return EditControllerEx1::getParamStringByValue(tag, valueNormalized, string);
         }
 
-        tresult PLUGIN_API Capacitor2FixController::getParamValueByString(ParamID tag, TChar* string, ParamValue& valueNormalized)
+        tresult PLUGIN_API Capacitor2TweakController::getParamValueByString(ParamID tag, TChar* string, ParamValue& valueNormalized)
         {
             return EditControllerEx1::getParamValueByString(tag, string, valueNormalized);
         }
     }
 }
 
-// AudioEffect* createEffectInstance(audioMasterCallback audioMaster) {return new Capacitor2FixController(audioMaster);}
+// AudioEffect* createEffectInstance(audioMasterCallback audioMaster) {return new Capacitor2TweakController(audioMaster);}
 
-// Capacitor2FixController::Capacitor2FixController(audioMasterCallback audioMaster) :
+// Capacitor2TweakController::Capacitor2TweakController(audioMasterCallback audioMaster) :
 //     AudioEffectX(audioMaster, kNumPrograms, kNumParameters)
 // {
 // 	A = 1.0;
@@ -276,10 +276,10 @@ namespace Steinberg {
 //     vst_strncpy (_programName, "Default", kVstMaxProgNameLen); // default program name
 // }
 
-// Capacitor2FixController::~Capacitor2FixController() {}
-// VstInt32 Capacitor2FixController::getVendorVersion () {return 1000;}
-// void Capacitor2FixController::setProgramName(char *name) {vst_strncpy (_programName, name, kVstMaxProgNameLen);}
-// void Capacitor2FixController::getProgramName(char *name) {vst_strncpy (name, _programName, kVstMaxProgNameLen);}
+// Capacitor2TweakController::~Capacitor2TweakController() {}
+// VstInt32 Capacitor2TweakController::getVendorVersion () {return 1000;}
+// void Capacitor2TweakController::setProgramName(char *name) {vst_strncpy (_programName, name, kVstMaxProgNameLen);}
+// void Capacitor2TweakController::getProgramName(char *name) {vst_strncpy (name, _programName, kVstMaxProgNameLen);}
 // //airwindows likes to ignore this stuff. Make your own programs, and make a different plugin rather than
 // //trying to do versioning and preventing people from using older versions. Maybe they like the old one!
 
@@ -290,7 +290,7 @@ namespace Steinberg {
 // 	return data;
 // }
 
-// VstInt32 Capacitor2FixController::getChunk (void** data, bool isPreset)
+// VstInt32 Capacitor2TweakController::getChunk (void** data, bool isPreset)
 // {
 // 	float *chunkData = (float *)calloc(kNumParameters, sizeof(float));
 // 	chunkData[0] = A;
@@ -305,7 +305,7 @@ namespace Steinberg {
 // 	return kNumParameters * sizeof(float);
 // }
 
-// VstInt32 Capacitor2FixController::setChunk (void* data, VstInt32 byteSize, bool isPreset)
+// VstInt32 Capacitor2TweakController::setChunk (void* data, VstInt32 byteSize, bool isPreset)
 // {
 // 	float *chunkData = (float *)data;
 // 	A = pinParameter(chunkData[0]);
@@ -319,7 +319,7 @@ namespace Steinberg {
 // 	return 0;
 // }
 
-// void Capacitor2FixController::setParameter(VstInt32 index, float value) {
+// void Capacitor2TweakController::setParameter(VstInt32 index, float value) {
 //     switch (index) {
 //         case kParamA: A = value; break;
 //         case kParamB: B = value; break;
@@ -329,7 +329,7 @@ namespace Steinberg {
 //     }
 // }
 
-// float Capacitor2FixController::getParameter(VstInt32 index) {
+// float Capacitor2TweakController::getParameter(VstInt32 index) {
 //     switch (index) {
 //         case kParamA: return A; break;
 //         case kParamB: return B; break;
@@ -339,7 +339,7 @@ namespace Steinberg {
 //     } return 0.0; //we only need to update the relevant name, this is simple to manage
 // }
 
-// void Capacitor2FixController::getParameterName(VstInt32 index, char *text) {
+// void Capacitor2TweakController::getParameterName(VstInt32 index, char *text) {
 //     switch (index) {
 //         case kParamA: vst_strncpy (text, "Lowpass", kVstMaxParamStrLen); break;
 // 		case kParamB: vst_strncpy (text, "Highpass", kVstMaxParamStrLen); break;
@@ -349,7 +349,7 @@ namespace Steinberg {
 //     } //this is our labels for displaying in the VST host
 // }
 
-// void Capacitor2FixController::getParameterDisplay(VstInt32 index, char *text) {
+// void Capacitor2TweakController::getParameterDisplay(VstInt32 index, char *text) {
 //     switch (index) {
 //         case kParamA: float2string (A, text, kVstMaxParamStrLen); break;
 //         case kParamB: float2string (B, text, kVstMaxParamStrLen); break;
@@ -359,7 +359,7 @@ namespace Steinberg {
 // 	} //this displays the values and handles 'popups' where it's discrete choices
 // }
 
-// void Capacitor2FixController::getParameterLabel(VstInt32 index, char *text) {
+// void Capacitor2TweakController::getParameterLabel(VstInt32 index, char *text) {
 //     switch (index) {
 //         case kParamA: vst_strncpy (text, "", kVstMaxParamStrLen); break;
 //         case kParamB: vst_strncpy (text, "", kVstMaxParamStrLen); break;
@@ -369,19 +369,19 @@ namespace Steinberg {
 //     }
 // }
 
-// VstInt32 Capacitor2FixController::canDo(char *text)
+// VstInt32 Capacitor2TweakController::canDo(char *text)
 // { return (_canDo.find(text) == _canDo.end()) ? -1: 1; } // 1 = yes, -1 = no, 0 = don't know
 
-// bool Capacitor2FixController::getEffectName(char* name) {
-//     vst_strncpy(name, "Capacitor2FixController", kVstMaxProductStrLen); return true;
+// bool Capacitor2TweakController::getEffectName(char* name) {
+//     vst_strncpy(name, "Capacitor2TweakController", kVstMaxProductStrLen); return true;
 // }
 
-// VstPlugCategory Capacitor2FixController::getPlugCategory() {return kPlugCategEffect;}
+// VstPlugCategory Capacitor2TweakController::getPlugCategory() {return kPlugCategEffect;}
 
-// bool Capacitor2FixController::getProductString(char* text) {
-//   	vst_strncpy (text, "skarjala Capacitor2FixController", kVstMaxProductStrLen); return true;
+// bool Capacitor2TweakController::getProductString(char* text) {
+//   	vst_strncpy (text, "skarjala Capacitor2TweakController", kVstMaxProductStrLen); return true;
 // }
 
-// bool Capacitor2FixController::getVendorString(char* text) {
+// bool Capacitor2TweakController::getVendorString(char* text) {
 //   	vst_strncpy (text, "skarjala", kVstMaxVendorStrLen); return true;
 // }

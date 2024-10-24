@@ -2,15 +2,15 @@
 //  *  Capacitor2
 //  *  Copyright (c) 2016 airwindows, Airwindows uses the MIT license
 //  * ========================================
-//  *  Capacitor2Fix - Capacitor2FixProcessor.cpp
+//  *  Capacitor2Tweak - Capacitor2TweakProcessor.cpp
 //  *  Ported to VST3 by skarjala, open-sourced using GPLv3 license
 //  * ======================================== */
 
 // created with much help from https://github.com/steinbergmedia/vst3_example_plugin_hello_world/
 
-#include "Capacitor2FixProcessor.hpp"
-#include "Capacitor2FixCIDs.hpp"
+#include "PluginProcessor.hpp"
 #include "LookupTable.hpp"
+#include "PluginCIDs.hpp"
 #include "base/source/fstreamer.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 
@@ -23,7 +23,7 @@
 
 namespace Steinberg {
     namespace Vst {
-        tresult PLUGIN_API Capacitor2FixProcessor::initialize(FUnknown* context)
+        tresult PLUGIN_API Capacitor2TweakProcessor::initialize(FUnknown* context)
         {
             if (context == nullptr) {
                 return kResultFalse;
@@ -37,17 +37,17 @@ namespace Steinberg {
             addAudioInput(STR16("Stereo In"), SpeakerArr::kStereo);
             addAudioOutput(STR16("Stereo Out"), SpeakerArr::kStereo);
 
-            setControllerClass(Capacitor2FixControllerUID);
+            setControllerClass(Capacitor2TweakControllerUID);
 
             return kResultOk;
         }
 
-        tresult PLUGIN_API Capacitor2FixProcessor::terminate()
+        tresult PLUGIN_API Capacitor2TweakProcessor::terminate()
         {
             return AudioEffect::terminate();
         }
 
-        tresult PLUGIN_API Capacitor2FixProcessor::setActive(TBool isActive)
+        tresult PLUGIN_API Capacitor2TweakProcessor::setActive(TBool isActive)
         {
             if (isActive == false) {
                 // handling for deactivation of plugin
@@ -58,7 +58,7 @@ namespace Steinberg {
             return kResultOk;
         }
 
-        tresult PLUGIN_API Capacitor2FixProcessor::canProcessSampleSize(int32 symbolicSampleSize)
+        tresult PLUGIN_API Capacitor2TweakProcessor::canProcessSampleSize(int32 symbolicSampleSize)
         {
             if (symbolicSampleSize == Vst::kSample32 || symbolicSampleSize == Vst::kSample64) {
                 return kResultOk;
@@ -66,7 +66,7 @@ namespace Steinberg {
             return kResultFalse;
         }
 
-        tresult PLUGIN_API Capacitor2FixProcessor::setState(IBStream* state)
+        tresult PLUGIN_API Capacitor2TweakProcessor::setState(IBStream* state)
         {
             if (state == nullptr) {
                 return kResultFalse;
@@ -108,7 +108,7 @@ namespace Steinberg {
             return kResultOk;
         }
 
-        tresult PLUGIN_API Capacitor2FixProcessor::getState(IBStream* state)
+        tresult PLUGIN_API Capacitor2TweakProcessor::getState(IBStream* state)
         {
             if (state == nullptr) {
                 return kResultFalse;
@@ -131,7 +131,7 @@ namespace Steinberg {
             return kResultOk;
         }
 
-        tresult PLUGIN_API Capacitor2FixProcessor::setupProcessing(ProcessSetup& newSetup)
+        tresult PLUGIN_API Capacitor2TweakProcessor::setupProcessing(ProcessSetup& newSetup)
         {
             return AudioEffect::setupProcessing(newSetup);
         }
@@ -141,7 +141,7 @@ namespace Steinberg {
             return 100.0 * std::tanh(input / 100.0);
         }
 
-        tresult PLUGIN_API Capacitor2FixProcessor::process(ProcessData& data)
+        tresult PLUGIN_API Capacitor2TweakProcessor::process(ProcessData& data)
         {
             if (data.numSamples <= 0) {
                 return kResultTrue;
@@ -168,19 +168,19 @@ namespace Steinberg {
                     }
 
                     switch (paramQueue->getParameterId()) {
-                        case Capacitor2FixParamID::kLowpass:
+                        case Capacitor2TweakParamID::kLowpass:
                             paramLowpass = value;
                             break;
-                        case Capacitor2FixParamID::kHighpass:
+                        case Capacitor2TweakParamID::kHighpass:
                             paramHighpass = value;
                             break;
-                        case Capacitor2FixParamID::kNonLin:
+                        case Capacitor2TweakParamID::kNonLin:
                             paramNonLin = value;
                             break;
-                        case Capacitor2FixParamID::kDryWet:
+                        case Capacitor2TweakParamID::kDryWet:
                             paramDryWet = value;
                             break;
-                        case Capacitor2FixParamID::kBypass:
+                        case Capacitor2TweakParamID::kBypass:
                             pluginBypass = value;
                             break;
                     }
@@ -192,11 +192,11 @@ namespace Steinberg {
             return kResultOk;
         }
 
-        void Capacitor2FixProcessor::processAudio(AudioBusBuffers* inputs,
-                                                  const int32 nInputs,
-                                                  AudioBusBuffers* outputs,
-                                                  const int32 nOutputs,
-                                                  const int32 nSamples)
+        void Capacitor2TweakProcessor::processAudio(AudioBusBuffers* inputs,
+                                                    const int32 nInputs,
+                                                    AudioBusBuffers* outputs,
+                                                    const int32 nOutputs,
+                                                    const int32 nSamples)
         {
             if (inputs == nullptr || outputs == nullptr) {
                 return;
@@ -375,7 +375,7 @@ namespace Steinberg {
                 }
             }
 
-            // void Capacitor2FixProcessor::handleProcessParamChanges(IParameterChanges* paramChanges, const int32 numSamples)
+            // void Capacitor2TweakProcessor::handleProcessParamChanges(IParameterChanges* paramChanges, const int32 numSamples)
             // {
             //     if (paramChanges == nullptr) {
             //         return;

@@ -2,22 +2,22 @@
 //  *  Capacitor2
 //  *  Copyright (c) 2016 airwindows, Airwindows uses the MIT license
 //  * ========================================
-//  *  Capacitor2Fix - Capacitor2FixProcessor.cpp
+//  *  Capacitor2Tweak - Capacitor2TweakProcessor.cpp
 //  *  Ported to VST3 by skarjala, open-sourced using GPLv3 license
 //  * ======================================== */
 
-#ifndef _CAPACITOR2_FIX_CONTROLLER_
-#define _CAPACITOR2_FIX_CONTROLLER_
+#ifndef _CAPACITOR2_TWEAK_CONTROLLER_
+#define _CAPACITOR2_TWEAK_CONTROLLER_
 
 #include "public.sdk/source/vst/vsteditcontroller.h"
 
 namespace Steinberg {
     namespace Vst {
-        class Capacitor2FixController : public EditControllerEx1
+        class Capacitor2TweakController : public EditControllerEx1
         {
           public:
-            Capacitor2FixController() = default;
-            ~Capacitor2FixController() = default;
+            Capacitor2TweakController() = default;
+            ~Capacitor2TweakController() = default;
 
             // overrides for IPluginBase
             tresult PLUGIN_API initialize(FUnknown* context) override;
@@ -34,14 +34,14 @@ namespace Steinberg {
             tresult PLUGIN_API getParamStringByValue(ParamID tag, ParamValue valueNormalized, String128 string) override;
             tresult PLUGIN_API getParamValueByString(ParamID tag, TChar* string, ParamValue& valueNormalized) override;
 
-            static FUnknown* createInstance(void*) { return static_cast<IEditController*>(new Capacitor2FixController); }
+            static FUnknown* createInstance(void*) { return static_cast<IEditController*>(new Capacitor2TweakController); }
 
             DEFINE_INTERFACES
             END_DEFINE_INTERFACES(EditControllerEx1)
             DELEGATE_REFCOUNT(EditControllerEx1)
 
-            //     Capacitor2FixController(audioMasterCallback audioMaster);
-            //     ~Capacitor2FixController();
+            //     Capacitor2TweakController(audioMasterCallback audioMaster);
+            //     ~Capacitor2TweakController();
             //     virtual bool getEffectName(char* name);                       // The plug-in name
             //     virtual VstPlugCategory getPlugCategory();                    // The general category for the plug-in
             //     virtual bool getProductString(char* text);                    // This is a unique plug-in string provided by Steinberg
@@ -115,4 +115,4 @@ namespace Steinberg {
     }
 }
 
-#endif // _CAPACITOR2_FIX_CONTROLLER_
+#endif // _CAPACITOR2_TWEAK_CONTROLLER_
