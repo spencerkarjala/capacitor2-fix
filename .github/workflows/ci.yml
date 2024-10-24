@@ -6,10 +6,10 @@ on:
       - master
 
 jobs:
-  build:
+  build-unix:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     outputs:
       vst-artifact: ${{ steps.artifact-upload.outputs.artifact-id }}
@@ -22,16 +22,31 @@ jobs:
       - name: run build (unix)
         shell: bash
         run: ./build.sh --clean --type release
-        if: runner.os != 'Windows'
-
-      - name: run build (windows)
-        shell: pwsh
-        run: .\build.ps1 -Clean -Type Release
-        if: runner.os == 'Windows'
 
       - uses: actions/upload-artifact@v4
         id: artifact-upload
         with:
           name: "capacitor2fix-${{ matrix.os }}"
           path: ./build/VST3/Release/
+          if-no-files-found: error
+
+  build-windows:
+    runs-on: windows-latest
+    outputs:
+      vst-artifact: ${{ steps.artifact-upload.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          persist-credentials: false
+
+      - name: run build (windows)
+        shell: pwsh
+        run: .\build.ps1 -Clean -Type Release
+
+      - uses: actions/upload-artifact@v4
+        id: artifact-upload
+        with:
+          name: "capacitor2fix-windows"
+          path: ./build/VST3/Release/Capacitor2Fix.vst3/Contents/x86_64-win/
           if-no-files-found: error
